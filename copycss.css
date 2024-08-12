@@ -28,31 +28,46 @@ body::before {
 }
 
 .form-box {
-    width: 500px;
+    width: 600px;
     background: rgba(16, 25, 78, 0.8);
     margin: 12% auto;
-    padding: 50px 0;
+    padding: 50px;
     color: #fff;
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
 h1 {
     font-size: 25px;
     font-family: 'Varela', sans-serif;
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
-#image{
-    margin: 40px auto;
-    width: 80%;
-    padding-top: 10px;
-    padding-bottom: 5px;
+.login-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.input-box{
-    margin: 40px auto;
+.image-section {
+    flex: 1;
+    text-align: center;
+}
+
+.input-section {
+    flex: 1;
+}
+
+.login-image {
     width: 80%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.input-box {
+    margin: 20px auto;
+    width: 100%;
     padding-top: 10px;
     padding-bottom: 5px;
 }
@@ -86,7 +101,7 @@ h1 {
 
 .login-btn {
     margin: 40px auto 20px;
-    width: 80%;
+    width: 90%;
     display: block;
     outline: none;
     padding: 10px 0;
@@ -95,4 +110,89 @@ h1 {
     background: transparent;
     color: #fff;
     font-size: 16px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(16, 25, 78, 0.8);
+    color: #fff;
+    padding: 10px 0;
+    font-family: 'Varela', sans-serif;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 600px) {
+    .form-box {
+        width: 90%;
+        padding: 20px;
+        margin: 20% auto;
+    }
+
+    .login-container {
+        flex-direction: column;
+    }
+
+    .image-section,
+    .input-section {
+        width: 100%;
+    }
+
+    .login-image {
+        width: 60%;
+        margin-bottom: 20px;
+    }
+
+    .input-box {
+        width: 100%;
+    }
+
+    .login-btn {
+        width: 100%;
+    }
+
+    .footer {
+        font-size: 4vw;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    .form-box {
+        width: 80%;
+        padding: 30px;
+        margin: 15% auto;
+    }
+
+    .login-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-section,
+    .input-section {
+        width: 80%;
+    }
+
+    .login-image {
+        width: 70%;
+        margin-bottom: 15px;
+    }
+
+    .input-box {
+        width: 90%;
+    }
+
+    .login-btn {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 4vw;
+    }
+
+    p {
+        font-size: 2.5vw;
+    }
 }
