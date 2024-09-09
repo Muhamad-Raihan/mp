@@ -1,16 +1,8 @@
 <?php
 session_start();
 
-// Restrict access if not logged in
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header('Location: login.html');
-    exit;
-}
-
-// Logout functionality
-if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-    session_destroy();
-    header('Location: login.html');
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
     exit;
 }
 ?>
@@ -19,11 +11,29 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="cantik.css">
 </head>
-<body>
-    <h1>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h1>
-    <p><a href="dashboard.php?action=logout">Logout</a></p>
+<body background="../../picture/ywhite.png">
+    <div class="form-box">
+        <form action="logout.php" method="post">
+            <h1>Selamat datang, <?= htmlspecialchars($_SESSION['username']); ?></h1>
+            <div class="login-container">
+                <div class="image-section">
+                    <img src="<?= htmlspecialchars($_SESSION['image']); ?>" alt="Image" class="login-image">
+                </div>
+                <div class="input-section">
+                    <div class="data-box">
+                        <label for="nama">Nama: <?= htmlspecialchars($_SESSION['nama']); ?></label><br>
+                        <label for="kelas">Kelas: <?= htmlspecialchars($_SESSION['kelas']); ?></label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+    <footer class="footer">
+    <p>Created by Muhammad Raihan Syahfitrah - 2024</p>
+</footer>
 </body>
 </html>
