@@ -1,19 +1,59 @@
 <?php
 session_start();
 
-if (isset($_SESSION['username'])) {
-    header("Location: dashboard.php");
-    exit;
-}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-$error = isset($_GET['error']) ? $_GET['error'] : '';
+    // Baca file users.txt
+    if (file_exists('users.txt')) {
+        $users = file('users.txt', FILE_IGNORE_NEW_LINES);
 
-if (isset($_SESSION['attempt']) && $_SESSION['attempt'] >= 3) {
-    echo "<script>
-        alert('Anda telah gagal login 3 kali. Halaman akan tertutup.');
-        window.close();
-    </script>";
-    exit;
+        foreach ($users as $user) {
+            list($stored_username, $stored_password_hash) = explode(':', $user);
+
+            // Cek apakah username cocok dan password terverifikasi
+            if ($username == $stored_username && password_verify($password, $stored_password_hash)) {
+                $_SESSION['username'] = $username;
+                header('Location: dashboard.php');
+                exit;
+            }
+        }
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+    
+        // Validasi username dan password
+        if (isset($users[$username]) && password_verify($password, $users[$username]['password'])) {
+            $_SESSION['username'] = $username;
+            $_SESSION['image'] = $users[$username]['image'];
+            $_SESSION['nama'] = $users[$username]['nama'];
+            $_SESSION['kelas'] = $users[$username]['kelas'];
+            header("Location: dashboard.php");
+            exit;
+        }
+    
+        if (!isset($_SESSION['attempt'])) {
+            $_SESSION['attempt'] = 0;
+        }
+    
+        $_SESSION['attempt'] += 1;
+    
+        if ($_SESSION['attempt'] >= 3) {
+            echo "<script>
+                alert('Anda telah gagal login 3 kali. Halaman akan tertutup.');
+                window.close();
+            </script>";
+            exit;
+        } else {
+            header("Location: login.php?error=Login tidak valid.");
+        }
+    }
+
+    // Jika login gagal
+    echo "Username atau password salah.";
 }
 ?>
 
@@ -49,6 +89,7 @@ if (isset($_SESSION['attempt']) && $_SESSION['attempt'] >= 3) {
                 </div>
             </div>
         </form>
+        <p>Belum punya akun? <a href="register.php">Daftar di sini</a></p>
         <?php if ($error): ?>
         <p style="color:red;"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>

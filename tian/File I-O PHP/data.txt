@@ -1,0 +1,2 @@
+USR01 | Nathan Andreas  | Medan Tembung | 12345678
+USR02 | Yudha | marelan | 12345678

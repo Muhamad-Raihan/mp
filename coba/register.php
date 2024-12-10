@@ -59,40 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user_data = $username . ':' . $hashed_password . ':' . $name . ':' . $kelas . ':' . $target_file . PHP_EOL;
             file_put_contents('users.txt', $user_data, FILE_APPEND);
 
-            echo "Registrasi berhasil. Silakan login!";
+            header("Location: index.php");
+            exit;
         } else {
             echo "Maaf, terjadi kesalahan saat mengupload file gambar.";
         }
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
-<body>
-    <h2>Register</h2>
-    <form method="POST" action="register.php" enctype="multipart/form-data">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-
-        <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required><br>
-
-        <label for="kelas">Kelas:</label>
-        <input type="text" id="kelas" name="kelas" required><br>
-
-        <label for="image">Upload Foto Profil:</label>
-        <input type="file" id="image" name="image" accept="image/*" required><br>
-
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html>
